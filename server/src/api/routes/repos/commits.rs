@@ -11,7 +11,7 @@ pub async fn get_commits(
     Query(params): Query<HashMap<String, String>>,
 ) -> Result<Json<Value>, StatusCode> {
     let page = params.get("page").and_then(|page| page.parse::<usize>().ok());
-    let limit = params.get("limit").and_then(|page| page.parse::<usize>().ok());
+    let limit = params.get("limit").and_then(|limit| limit.parse::<usize>().ok());
     let branch = params.get("branch").map(String::as_ref);
 
     let service = Service::new(&state.repo_path, &repo)?;
