@@ -1,7 +1,7 @@
 # Swirl API routes
 
 ## GET repos
-Get all (public) repositories on the server
+Get all public repositories.
 
 ### Parameters
 | Name   | Type | Description                      | Default |
@@ -22,13 +22,13 @@ Get all (public) repositories on the server
 ---
 
 ## GET repos/:repo/commits
-Get repository commits
+Get list of repository commits.
 
 ### Parameters
 | Name    | Type | Description                       | Default     |
 |---------|------|-----------------------------------|-------------|
 | :repo   | str  | repo field in _config.yaml_       |             |
-| &branch | str  | branch to list commits from       |             |
+| &branch | str  | branch to list commits from       | HEAD        |
 | &page   | int  | Page number of results to return  | 1           |
 | &limit  | int  | Page size of results              | 20          |
 
@@ -43,7 +43,7 @@ Get repository commits
 ---
 
 ## GET repos/:repo/commits/:commit
-Get note from commit in repository
+Get info of commit.
 
 ### Parameters
 | Name      | Type | Description                 |
@@ -66,6 +66,8 @@ diff: string,
 ---
 
 ## GET repos/:repo/branches
+Get list of branches.
+
 ### Parameters
 | Name   | Type | Description                      | Default |
 |--------|------|----------------------------------|---------|
@@ -83,7 +85,8 @@ diff: string,
 ---
 
 ## GET repos/:repo/branches/:branch/tree
-Get tree of most recent commit in branch
+Get file tree.
+
 ### Parameters
 | Name    | Type | Description                      | Default |
 |---------|------|----------------------------------|---------|
@@ -104,14 +107,14 @@ Get tree of most recent commit in branch
 ---
 
 ## GET repos/:repo/raw/content/:path
-Get content of file
+Get content of file.
 
 ### Parameters
 | Name     | Type  | Description                 | Default |
 |----------|-------|-----------------------------|---------|
 | :repo    | str   | Repo field in _config.yaml_ |         |
 | :path    | str   | File path                   |         |
-| &branch  | str   | Name of branch              | main    |
+| &branch  | str   | Name of branch              | HEAD    |
 
 ### Response
 ```
@@ -121,14 +124,14 @@ Get content of file
 ---
 
 ## GET repos/:repo/raw/is_bin/:path
-Get content of file
+Get "true" or "false depending on wether requested file is binary or not.
 
 ### Parameters
 | Name     | Type  | Description                 | Default |
 |----------|-------|-----------------------------|---------|
 | :repo    | str   | Repo field in _config.yaml_ |         |
 | :path    | str   | File path                   |         |
-| &branch  | str   | Name of branch              | main    |
+| &branch  | str   | Name of branch              | HEAD    |
 
 ### Response
 ```
