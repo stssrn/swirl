@@ -44,7 +44,3 @@ impl Config {
         Ok( Config { port, home_repo, repo_path })
     }
 }
-
-fn env_not_found(var: &str) -> Error {
-    Error::NotFound(format!("config: {var} env var not found"))
-}
