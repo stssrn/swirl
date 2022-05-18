@@ -15,7 +15,7 @@ impl Service {
         match Repository::open(&root_path.join(repo_name)) {
             Err(e) => {
                 error!("Failed to open repository {repo_name}: {e}");
-                Err(e.into())
+                Err(e)
             },
             Ok(repo) =>  Ok(Self
                 {

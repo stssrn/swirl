@@ -27,16 +27,16 @@ impl Config {
             .map_or(Ok(DEFAULT_PORT), |env_var| env_var.parse::<u16>())?;
 
         let home_repo = std::env::var(ENV_HOME_REPO)
-            .unwrap_or(DEFAULT_HOME_REPO.into());
+            .unwrap_or_else(|_| DEFAULT_HOME_REPO.into());
 
         let repo_path = std::env::var(ENV_REPO_PATH)
-            .unwrap_or(DEFAULT_REPO_PATH.into());
+            .unwrap_or_else(|_| DEFAULT_REPO_PATH.into());
 
         let repo_path = if let Some(home_dir) = dirs::home_dir() {
             let home_dir = home_dir.to_str().unwrap();
             repo_path
                 .replace("$HOME", home_dir)
-                .replace("~", home_dir)
+                .replace('~', home_dir)
         } else { repo_path };
 
         let repo_path = PathBuf::from(repo_path);

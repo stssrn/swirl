@@ -27,7 +27,7 @@ impl Service {
     pub async fn get_tree(
         &self, branch: Option<&str>, page: Option<usize>, limit: Option<usize>
     ) -> Result<TreeNode, Error> {
-        let reference = branch.map(branch_to_ref).unwrap_or("HEAD".to_string());
+        let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         let page = page.unwrap_or(0);
         let limit = limit.unwrap_or(50);
         let offset = page * limit;
@@ -48,7 +48,7 @@ impl Service {
     pub async fn get_commits(
         &self, branch: Option<&str>, page: Option<usize>, limit: Option<usize>
     ) -> Result<Vec<Commit>, Error> {
-        let reference = branch.map(branch_to_ref).unwrap_or("HEAD".to_string());
+        let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         let page = page.unwrap_or(0);
         let limit = limit.unwrap_or(20);
         let start = page * limit;
@@ -57,20 +57,20 @@ impl Service {
     }
 
     pub async fn get_commit(&self, branch: Option<&str>, oid: &Oid) -> Result<Commit, Error> {
-        let reference = branch.map(branch_to_ref).unwrap_or("HEAD".to_string());
+        let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         debug!("getting commit {} in repo {}", oid.to_string(), self.name);
-        self.repo.get_commit(&reference, oid).await.ok_or(Error::NotFound(format!("Couldn't find OID {}", oid.to_string())))
+        self.repo.get_commit(&reference, oid).await.ok_or_else(|| Error::NotFound(format!("Couldn't find OID {}", oid.to_string())))
     }
 
     pub async fn get_file_content(&self, path: &Path, branch: Option<&str>) -> Result<Vec<u8>, Error> {
-        let reference = branch.map(branch_to_ref).unwrap_or("HEAD".to_string());
+        let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         debug!("getting file content of {path:?} in repo {} ({reference})", self.name);
         let oid = self.repo.get_file_id_from_path(path, &reference).await?;
         self.repo.get_object_content(&oid)
     }
 
     pub async fn is_file_binary(&self, target: &Path, branch: Option<&str>) -> Result<bool, Error> {
-        let reference = branch.map(branch_to_ref).unwrap_or("HEAD".to_string());
+        let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         let oid = self.repo.get_file_id_from_path(target, &reference).await?;
         self.repo.is_object_binary(&oid).await
     }

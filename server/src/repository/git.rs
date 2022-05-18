@@ -13,7 +13,7 @@ impl Repository {
     ) -> Result<TreeNode, Error> {
         let repo = self.repo.lock()?;
         let tree = repo
-            .revparse_single(&reference)?
+            .revparse_single(reference)?
             .peel_to_tree()?;
         let oid: Oid = tree.id().into();
         let children = tree
@@ -138,6 +138,6 @@ fn parse_tree_node(repo: &git2::Repository, object: git2::Object, name: &str ) -
 
 impl std::convert::From<Oid> for git2::Oid {
     fn from(oid: Oid) -> Self {
-        git2::Oid::from_bytes(&oid.as_bytes()).unwrap()
+        git2::Oid::from_bytes(oid.as_bytes()).unwrap()
     }
 }
