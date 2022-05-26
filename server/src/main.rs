@@ -23,7 +23,7 @@ async fn main() -> Result<()> {
     // TODO: change to ./repos since that's Soft Serve's default
 
     let config = Config::load()?;
-    let app_state = Arc::new(api::AppState::new(&config.home_repo, &config.repo_path));
+    let app_state = Arc::new(api::AppState::new(&config.home_repo, &config.repo_path, &config.allowed_origins));
     let routes = api::routes::routes(app_state);
 
     let addr = SocketAddr::from(([0, 0, 0, 0, 0, 0, 0, 1], config.port));

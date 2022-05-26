@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow = "1.0"
-axum = "0.5"
+axum = { version = "0.5", features = ["headers"] }
 dirs = "4.0"
 dotenv = "0.15.0"
 git2 = "0.14"
