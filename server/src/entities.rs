@@ -92,7 +92,7 @@ impl std::fmt::Debug for Oid {
 impl ToString for Oid {
     fn to_string(&self) -> String {
         self.0.iter()
-            .map(|n| format!("{n:x}"))
+            .map(|n| format!("{:02x}", n))
             .collect()
     }
 }

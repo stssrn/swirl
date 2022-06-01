@@ -82,12 +82,12 @@ impl Repository {
         }).ok().flatten()
     }
 
-    pub async fn get_commit_signature(&self, commit: &Commit) -> Option<String> {
-        let repo = self.repo.lock().ok()?;
-        let oid = git2::Oid::from_bytes(commit.oid.as_bytes()).ok()?;
-        let signature = repo.extract_signature(&oid, None).ok()?;
-        Some(signature.0.as_str()?.to_string())
-    }
+    //pub async fn get_commit_signature(&self, commit: &Commit) -> Option<String> {
+    //    let repo = self.repo.lock().ok()?;
+    //    let oid = git2::Oid::from_bytes(commit.oid.as_bytes()).ok()?;
+    //    let signature = repo.extract_signature(&oid, None).ok()?;
+    //    Some(signature.0.as_str()?.to_string())
+    //}
 
     pub fn get_object_content(&self, oid: &Oid) -> Result<Vec<u8>, Error> {
         Ok(self.repo.lock()?.find_blob(oid.to_owned().into())?.content().to_vec())
