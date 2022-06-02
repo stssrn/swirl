@@ -13,10 +13,11 @@ pub async fn get_file(
     Query(params): Query<HashMap<String, String>>,
     TypedHeader(host): TypedHeader<Host>,
 ) -> Result<impl IntoResponse, StatusCode> {
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let path = std::path::PathBuf::from(path);
     let branch = params.get("branch").map(String::as_ref);
-    let file = service.get_file_content(&path, branch).await?;
+    let home_repo_path = state.repo_path.join(&state.home_repo);
+    let file = service.get_file_content(&path, branch, &home_repo_path).await?;
 
     let host_header = is_host_allowed(&state.allowed_origins, host.hostname());
 
@@ -33,7 +34,7 @@ pub async fn get_is_bin_file(
     Query(params): Query<HashMap<String, String>>,
     TypedHeader(host): TypedHeader<Host>,
 ) -> Result<impl IntoResponse, StatusCode> {
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let path = std::path::PathBuf::from(path);
     let branch = params.get("branch").map(String::as_ref);
     let is_bin = service.is_file_binary(&path, branch).await?;
@@ -52,7 +53,7 @@ pub async fn get_readme_file(
     Path(repo): Path<String>,
     TypedHeader(host): TypedHeader<Host>,
 ) -> Result<impl IntoResponse, StatusCode> {
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let home_repo = state.repo_path.join(&state.home_repo);
     let readme_file = service.get_readme(&home_repo).await?;
 

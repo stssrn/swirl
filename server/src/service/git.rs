@@ -28,6 +28,10 @@ impl Service {
     pub async fn get_tree(
         &self, branch: Option<&str>, page: Option<usize>, limit: Option<usize>
     ) -> Result<TreeNode, Error> {
+        if self.private {
+            return Err(Error::Forbidden("Repo is private".to_string()))
+        }
+
         let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         let page = page.unwrap_or(0);
         let limit = limit.unwrap_or(50);
@@ -38,6 +42,10 @@ impl Service {
     pub async fn get_branches(
         &self, page: Option<usize>, limit: Option<usize>
     ) -> Result<Vec<String>, Error> {
+        if self.private {
+            return Err(Error::Forbidden("Repo is private".to_string()))
+        }
+
         let page = page.unwrap_or(0);
         let limit = limit.unwrap_or(20);
         let offset = page * limit;
@@ -49,6 +57,10 @@ impl Service {
     pub async fn get_commits(
         &self, branch: Option<&str>, page: Option<usize>, limit: Option<usize>
     ) -> Result<Vec<Commit>, Error> {
+        if self.private {
+            return Err(Error::Forbidden("Repo is private".to_string()))
+        }
+
         let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         let page = page.unwrap_or(0);
         let limit = limit.unwrap_or(20);
@@ -58,6 +70,10 @@ impl Service {
     }
 
     pub async fn get_commit(&self, branch: Option<&str>, oid: &Oid) -> Result<Commit, Error> {
+        if self.private {
+            return Err(Error::Forbidden("Repo is private".to_string()))
+        }
+
         let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         debug!("getting commit {} in repo {}", oid.to_string(), self.name);
         self.repo.get_commit(&reference, oid).await.ok_or_else(|| {
@@ -66,7 +82,16 @@ impl Service {
         })
     }
 
-    pub async fn get_file_content(&self, path: &Path, branch: Option<&str>) -> Result<Vec<u8>, Error> {
+    pub async fn get_file_content(&self, path: &Path, branch: Option<&str>, home_repo_path: &Path) -> Result<Vec<u8>, Error> {
+        let all_repos = crate::Repository::get_all_repos(home_repo_path).await?;
+        let readme_path = all_repos.into_iter()
+            .find_map(|repo| if repo.repo == self.name { repo.readme } else { None })
+            .map(|path| PathBuf::from(&path)).context("couldn't find readme")?;
+
+        if self.private && self.name != self.home_repo_name && path != readme_path {
+            return Err(Error::Forbidden("Repo is private".to_string()))
+        }
+
         let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         debug!("getting file content of {path:?} in repo {} ({reference})", self.name);
         let oid = self.repo.get_file_id_from_path(path, &reference).await?;
@@ -74,6 +99,10 @@ impl Service {
     }
 
     pub async fn is_file_binary(&self, target: &Path, branch: Option<&str>) -> Result<bool, Error> {
+        if self.private {
+            return Err(Error::Forbidden("Repo is private".to_string()))
+        }
+
         let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
         let oid = self.repo.get_file_id_from_path(target, &reference).await?;
         self.repo.is_object_binary(&oid).await
@@ -86,7 +115,7 @@ impl Service {
             .find_map(|repo| if repo.repo == self.name { repo.readme } else { None })
             .map(|path| PathBuf::from(&path)).context("couldn't find readme")?;
         debug!(?readme_path);
-        self.get_file_content(&readme_path, None).await
+        self.get_file_content(&readme_path, None, home_repo_path).await
     }
 }
 

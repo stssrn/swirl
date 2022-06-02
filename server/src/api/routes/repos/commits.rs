@@ -16,7 +16,7 @@ pub async fn get_commits(
     let limit = params.get("limit").and_then(|limit| limit.parse::<usize>().ok());
     let branch = params.get("branch").map(String::as_ref);
 
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let commits: Vec<models::CommitListItem> = service.get_commits(branch, page, limit).await?
         .into_iter()
         .map(models::CommitListItem::from)
@@ -39,7 +39,7 @@ pub async fn get_commit(
 ) -> Result<impl IntoResponse, StatusCode> {
     let branch = params.get("branch").map(String::as_ref);
 
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let id = entities::Oid::from_str(&id).map_err(Error::from)?;
     let commit: models::Commit = service.get_commit(branch, &id).await?.into();
 

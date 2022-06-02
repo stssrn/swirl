@@ -6,6 +6,7 @@ impl std::convert::From<crate::Error> for axum::http::StatusCode {
         match err {
             Error::Internal(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Error::NotFound(_) => StatusCode::NOT_FOUND,
+            Error::Forbidden(_) => StatusCode::FORBIDDEN,
             Error::InvalidArgument(_) => StatusCode::BAD_REQUEST,
             Error::GitError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Error::ParseOidError(_) => StatusCode::BAD_REQUEST,

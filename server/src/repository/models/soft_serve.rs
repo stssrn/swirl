@@ -19,6 +19,7 @@ impl std::convert::From<Repo> for crate::entities::Repo {
         Self {
             name: repo.name,
             repo: repo.repo,
+            private: repo.private,
             note: repo.note,
             readme: repo.readme
         }

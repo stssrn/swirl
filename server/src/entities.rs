@@ -6,6 +6,7 @@ pub struct Repo {
     pub repo: String,
     pub note: String,
     pub readme: Option<String>,
+    pub private: bool,
 }
 
 #[derive(Debug)]

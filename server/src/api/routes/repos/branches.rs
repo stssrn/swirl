@@ -14,7 +14,7 @@ pub async fn get_branches(
 ) -> Result<impl IntoResponse, StatusCode> {
     let (page, limit) = parse_page_queries(&params);
 
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let branches = service.get_branches(page, limit).await?;
 
     let host_header = is_host_allowed(&state.allowed_origins, host.hostname());
@@ -34,7 +34,7 @@ pub async fn get_branch_tree(
 ) -> Result<impl IntoResponse, StatusCode> {
     let (page, limit) = parse_page_queries(&params);
 
-    let service = Service::new(&state.repo_path, &repo)?;
+    let service = Service::new(&state.repo_path, &repo, &state.home_repo).await?;
     let tree: models::TreeEntry = service.get_tree(Some(&branch), page, limit).await?.into();
 
     let host_header = is_host_allowed(&state.allowed_origins, host.hostname());

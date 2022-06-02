@@ -7,6 +7,8 @@ pub enum Error {
     #[error("{0}")]
     NotFound(String),
     #[error("{0}")]
+    Forbidden(String),
+    #[error("{0}")]
     InvalidArgument(String),
     #[error("{0}")]
     GitError(String),
