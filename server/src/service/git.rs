@@ -20,6 +20,7 @@ impl Service {
             .map(|repos| {
                 repos.into_iter()
                     .skip(offset)
+                    .filter(|repo| !repo.private)
                     .take(limit)
                     .collect()
             })
