@@ -137,3 +137,16 @@ Get "true" or "false depending on wether requested file is binary or not.
 ```
 { bool }
 ```
+
+## GET repos/:repo/raw/readme
+Get readme content.
+
+### Parameters
+| Name     | Type  | Description                 | Default |
+|----------|-------|-----------------------------|---------|
+| :repo    | str   | Repo field in _config.yaml_ |         |
+
+### Response
+```
+[File content]
+```

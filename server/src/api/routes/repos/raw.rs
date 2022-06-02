@@ -45,3 +45,21 @@ pub async fn get_is_bin_file(
         Json(serde_json::to_value(is_bin).map_err(Error::from)?)
     ))
 }
+
+// GET /repos/:repo/raw/readme
+pub async fn get_readme_file(
+    Extension(state): Extension<Arc<AppState>>,
+    Path(repo): Path<String>,
+    TypedHeader(host): TypedHeader<Host>,
+) -> Result<impl IntoResponse, StatusCode> {
+    let service = Service::new(&state.repo_path, &repo)?;
+    let home_repo = state.repo_path.join(&state.home_repo);
+    let readme_file = service.get_readme(&home_repo).await?;
+
+    let host_header = is_host_allowed(&state.allowed_origins, host.hostname());
+
+    Ok((
+        [(header::ACCESS_CONTROL_ALLOW_ORIGIN, host_header)],
+        readme_file
+    ))
+}

@@ -18,6 +18,7 @@ pub use commits::get_commits;
 pub use commits::get_commit;
 pub use raw::get_file;
 pub use raw::get_is_bin_file;
+pub use raw::get_readme_file;
 
 // GET /repos
 pub async fn get_repos(
