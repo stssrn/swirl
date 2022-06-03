@@ -1,4 +1,4 @@
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use anyhow::Context;
 use tracing::debug;
 
@@ -120,7 +120,7 @@ impl Service {
         let all_repos = crate::Repository::get_all_repos(home_repo_path).await?;
         let readme_path = all_repos.into_iter()
             .find_map(|repo| if repo.repo == self.name { repo.readme } else { None })
-            .map(|path| PathBuf::from(&path)).context("couldn't find readme")?;
+            .map(|path| Path::new("/").join(path)).context("couldn't find readme")?;
         debug!(?readme_path);
         self.get_file_content(&readme_path, None, home_repo_path).await
     }
