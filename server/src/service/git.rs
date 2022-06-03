@@ -87,9 +87,9 @@ impl Service {
         let all_repos = crate::Repository::get_all_repos(home_repo_path).await?;
         let readme_path = all_repos.into_iter()
             .find_map(|repo| if repo.repo == self.name { repo.readme } else { None })
-            .map(|path| PathBuf::from(&path)).context("couldn't find readme")?;
+            .map(|path| Path::new("/").join(path));
 
-        if self.private && self.name != self.home_repo_name && path != readme_path {
+        if self.private && self.name == self.home_repo_name && readme_path.as_deref() != Some(path) {
             return Err(Error::Forbidden("Repo is private".to_string()))
         }
 
