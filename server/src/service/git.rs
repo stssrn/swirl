@@ -84,13 +84,19 @@ impl Service {
     }
 
     pub async fn get_file_content(&self, path: &Path, branch: Option<&str>, home_repo_path: &Path) -> Result<Vec<u8>, Error> {
-        let all_repos = crate::Repository::get_all_repos(home_repo_path).await?;
-        let readme_path = all_repos.into_iter()
-            .find_map(|repo| if repo.repo == self.name { repo.readme } else { None })
-            .map(|path| Path::new("/").join(path));
+        if self.private {
+            let all_repos = crate::Repository::get_all_repos(home_repo_path).await?;
+            let readme_path = all_repos.into_iter()
+                .find_map(|repo| {
+                    if repo.repo == self.name {
+                        repo.readme
+                    } else { None }
+                })
+                .map(|path| Path::new("/").join(path));
 
-        if self.private && self.name == self.home_repo_name && readme_path.as_deref() != Some(path) {
-            return Err(Error::Forbidden("Repo is private".to_string()))
+            if self.name == self.home_repo_name && readme_path.as_deref() != Some(path) {
+                return Err(Error::Forbidden("Repo is private".to_string()))
+            }
         }
 
         let reference = branch.map(branch_to_ref).unwrap_or_else(|| "HEAD".to_string());
