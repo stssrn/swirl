@@ -53,6 +53,7 @@ impl std::convert::From<git2::Signature<'_>> for Author {
 #[derive(Debug)]
 pub struct TreeNode {
     pub name: String,
+    pub size: Option<usize>,
     pub oid: Oid,
     pub children: Option<Vec<TreeNode>>,
 }

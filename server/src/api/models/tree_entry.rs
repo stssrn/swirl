@@ -5,6 +5,7 @@ use crate::entities;
 #[derive(Debug, Serialize)]
 pub struct TreeEntry {
     name: String,
+    size: Option<usize>,
     id: String,
     #[serde(skip_serializing_if = "Option::is_none", rename = "entries")]
     entries: Option<Vec<TreeEntry>>,
@@ -21,6 +22,7 @@ impl std::convert::From<entities::TreeNode> for TreeEntry {
 
         Self {
             name: node.name,
+            size: node.size,
             id: node.oid.to_string(),
             entries
         }

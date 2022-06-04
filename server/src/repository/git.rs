@@ -31,6 +31,7 @@ impl Repository {
 
         Ok(TreeNode {
             name: "/".to_string(),
+            size: None,
             oid,
             children: Some(children),
         })
@@ -105,6 +106,7 @@ fn parse_tree_node(repo: &git2::Repository, object: git2::Object, name: &str ) -
             git2::ObjectType::Blob => {
                 TreeNode {
                     name: name.to_string(),
+                    size: Some(object.as_blob().unwrap().size()),
                     oid: object.id().into(),
                     children: None,
                 }
@@ -122,6 +124,7 @@ fn parse_tree_node(repo: &git2::Repository, object: git2::Object, name: &str ) -
 
                 TreeNode {
                     name: name.to_string(),
+                    size: None,
                     oid: object.id().into(),
                     children: Some(children)
                 }

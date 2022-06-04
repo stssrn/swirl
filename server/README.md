@@ -99,6 +99,7 @@ Get file tree.
 ```
 [
     name: string,
+    size: number, // size is in bytes.
     id: string
     entries: [ ... recurseive ]?,
 ]
