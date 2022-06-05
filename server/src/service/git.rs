@@ -83,7 +83,9 @@ impl Service {
         })
     }
 
-    pub async fn get_file_content(&self, path: &Path, branch: Option<&str>, home_repo_path: &Path) -> Result<Vec<u8>, Error> {
+    pub async fn get_file_content(
+        &self, path: &Path, branch: Option<&str>, home_repo_path: &Path
+    ) -> Result<Vec<u8>, Error> {
         if self.private {
             let all_repos = crate::Repository::get_all_repos(home_repo_path).await?;
             let readme_path = all_repos.into_iter()
@@ -121,7 +123,6 @@ impl Service {
         let readme_path = all_repos.into_iter()
             .find_map(|repo| if repo.repo == self.name { repo.readme } else { None })
             .map(|path| Path::new("/").join(path)).context("couldn't find readme")?;
-        debug!(?readme_path);
         self.get_file_content(&readme_path, None, home_repo_path).await
     }
 }

@@ -1,5 +1,12 @@
 use std::{collections::HashMap, sync::Arc};
-use axum::{Extension, extract::{Query, Path}, http::{StatusCode, header}, Json, response::IntoResponse, TypedHeader, headers::Host};
+use axum::{
+    Extension, Json,
+    TypedHeader,
+    extract::{Query, Path},
+    headers::Host,
+    http::{StatusCode, header},
+    response::IntoResponse,
+};
 
 use crate::{api::{AppState, models}, service::Service, Error};
 

@@ -101,7 +101,7 @@ Get file tree.
     name: string,
     size: number, // size is in bytes.
     id: string
-    entries: [ ... recurseive ]?,
+    entries: [ ... recursive ]?,
 ]
 ```
 
@@ -125,7 +125,7 @@ Get content of file.
 ---
 
 ## GET repos/:repo/raw/is_bin/:path
-Get "true" or "false depending on wether requested file is binary or not.
+Get "true" or "false" depending on whether requested file is binary or not.
 
 ### Parameters
 | Name     | Type  | Description                 | Default |

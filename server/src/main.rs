@@ -15,12 +15,7 @@ pub use error::Error;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    // NOTE: "Home" repo README.md can be read, but not the other files!!!
-    // Swirl's config settings could be stored in Swirl.yaml in config repo.
-
     tracing_subscriber::fmt::init();
-
-    // TODO: change to ./repos since that's Soft Serve's default
 
     let config = Config::load()?;
     let app_state = Arc::new(api::AppState::new(&config.home_repo, &config.repo_path, &config.allowed_origins));
