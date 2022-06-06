@@ -1,0 +1,54 @@
+.treeList {
+    list-style: none;
+    padding: 0px 2ch 0ch 3ch;
+    margin: 1ch 0px 2ch;
+
+    li {
+        display: flex;
+        justify-content: space-between;
+
+        &:hover > :not(.fileSize) {
+            font-weight: bold;
+            list-style: '> ';
+        }
+
+        &::marker {
+            color: $select-arrow-color;
+        }
+    }
+
+    .fileSize {
+        color: $deselected-color;
+    }
+}
+
+.currentDir {
+    padding: 1ch 2ch;
+    font-weight: bold;
+    border-bottom: 1px solid $deselected-color;
+
+    h1 {
+        font-size: 1em;
+        margin: 0;
+    }
+}
+
+.dirViewer {
+    border-color: inherit;
+    .currentDir {
+        border-color: inherit;
+    }
+
+    /** Loading text **/
+    > p {
+        margin-left: 2ch;
+    }
+}
+
+.dir {
+    color: #46C9FF;
+}
+
+.errorContainer {
+    margin: 0ch 2ch;
+}

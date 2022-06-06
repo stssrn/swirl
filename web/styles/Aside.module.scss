@@ -1,0 +1,27 @@
+.aside {
+    display: flex;
+    flex-direction: column;
+    color: #8d86ff;
+    gap: 2ch;
+    width: 155px;
+    flex-shrink: 0;
+
+    nav ul{
+        list-style: none;
+
+        a:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .aside {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .logo {
+        margin: auto;
+    }
+}

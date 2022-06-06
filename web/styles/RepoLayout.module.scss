@@ -1,0 +1,33 @@
+.main {
+    border: 1px solid $deselected-color;
+    border-radius: 4px;
+    padding: 0;
+    box-sizing: border-box;
+
+    &:hover{
+        border-color: $main-color;
+    }
+}
+.nav ul {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    gap: 1ch;
+    margin: 8px 0px;
+    color: $deselected-color;
+    text-transform: lowercase;
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select {
+    font-family: 'Inconsolata', monospace;
+}

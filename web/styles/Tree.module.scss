@@ -1,0 +1,15 @@
+.dirViewer {
+    border-color: inherit;
+    .currentDir {
+        border-color: inherit;
+    }
+
+    /** Loading text **/
+    > p {
+        margin-left: 2ch;
+    }
+}
+
+.errorContainer {
+    margin: 0ch 2ch;
+}

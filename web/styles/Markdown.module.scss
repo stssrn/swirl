@@ -1,0 +1,88 @@
+.markdown {
+    font-size: .9em;
+    overflow-wrap: break-word;
+    hyphens: auto;
+
+    h1 {
+        background-color: #5F5FFF;
+        color: #FFFF87;
+        font-size: 1.3em;
+        width: fit-content;
+        padding: 0ch 1ch;
+
+    }
+
+    h2, h3, h4, h5 {
+        font-size: 1.3em;
+        color: #46C9FF;
+        margin-top: 48px;
+
+        &::before {
+            font-weight: normal;
+        }
+    }
+
+    h2::before {
+        content: '## ';
+    }
+
+    h3::before {
+        content: '### ';
+    }
+
+    h4::before {
+        content: '#### ';
+    }
+
+    h5::before {
+        content: '##### ';
+    }
+
+    h6::before {
+        content: '###### ';
+    }
+
+    code {
+        color: #FF5F5F;
+        padding: 0ch 1ch;
+        width: fit-content;
+        display: inline-block;
+        background-color: #303030;
+    }
+
+    pre {
+        overflow-x: scroll;
+        background-color: #303030;
+        background-color: transparent;
+        div {
+                border: 1px solid $deselected-color;
+                border-radius: 4px;
+
+                &:hover {
+                    border-color: $main-color;
+                }
+
+                code {
+                    padding: 1ch 0px;
+                    background-color: transparent;
+                }
+        }
+    }
+
+    a {
+        color: #3ECE7A;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    hr {
+        border: 1px solid $deselected-color;
+    }
+
+    ul {
+        list-style: disc;
+        padding-left: 2ch;
+    }
+}

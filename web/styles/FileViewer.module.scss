@@ -1,0 +1,65 @@
+.fileViewer {
+    height: 100%;
+    border-color: inherit;
+
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 2ch;
+        border-bottom: 1px solid $deselected-color;
+        border-color: inherit;
+        max-width: 100%;
+    }
+}
+
+
+.filePreview {
+    overflow-x: scroll;
+    audio, > img, video, p {
+        padding: 1ch;
+        width: 100%;
+    }
+
+    > h1 {
+        padding: 1ch;
+    }
+
+    pre {
+        font-size: 1rem;
+        margin-bottom: 0;
+        border-radius: 4px;
+        padding-bottom: 1em !important;
+    }
+
+    /** Fix for weird Safari bug that causes audio element to be height 0**/
+    @media not all and (min-resolution:.001dpcm)
+    { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+        audio {
+            padding: 1ch;
+            height: 64px;
+        }
+    }}
+
+}
+
+.fileName {
+    font-size: 1em;
+    margin: 0;
+    padding: 1ch 0ch;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+.download {
+    color: $nav-text-color;
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.markdownWrapper {
+    margin: 0ch 2ch;
+}

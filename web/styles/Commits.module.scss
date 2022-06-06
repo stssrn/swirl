@@ -1,0 +1,57 @@
+.container {
+    p {
+        margin-left: 2ch;
+    }
+}
+
+.commits {
+    padding-left: 0;
+    margin: 2ch;
+    margin-bottom: 1em;
+
+    li {
+        list-style: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-overflow: '...'; /** Only works in Firefox **/
+        overflow: hidden;
+
+        &:hover .message {
+            font-weight: bold;
+        }
+    }
+}
+
+.id {
+    color: $id-color;
+}
+
+.pageNavigation {
+    color: $nav-text-color;
+    display: inline-block;
+    width: 100%;
+    padding: 0ch 2ch 2ch 2ch;
+
+    a {
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}
+
+.back {
+    float: left;
+
+    &::before {
+        content: '< ';
+    }
+}
+
+.next {
+    float: right;
+
+    &::after {
+        content: ' >';
+    }
+}

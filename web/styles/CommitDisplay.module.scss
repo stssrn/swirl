@@ -1,0 +1,23 @@
+.commitDisplay {
+    margin: 2ch;
+
+    h1 {
+        color: $id-color;
+        font-size: 1em;
+        line-height: 1em;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    p {
+        margin: 0;
+        margin-bottom: 1ch;
+    }
+}
+
+.message {
+    margin: 1ch;
+    padding-left: 2ch;
+}

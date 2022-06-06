@@ -1,0 +1,15 @@
+.loading::before {
+  content: '';
+  animation: loading .6s linear infinite;
+  color: $nav-text-color;
+}
+
+@keyframes loading {
+  0% { content: '⠟ '; }
+  17% { content: '⠻ '; }
+  33% { content: '⠽ '; }
+  50% { content: '⠾ '; }
+  67% { content: '⠷ '; }
+  83% { content: '⠯ '; }
+  100% { content: '⠟ '; }
+}

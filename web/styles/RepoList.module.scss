@@ -1,0 +1,38 @@
+.repos, .status {
+    list-style-type: none;
+    color: white;
+    border: 1px solid $deselected-color;
+    border-radius: 4px;
+    padding: 2ch 3ch;
+    margin: 0;
+    letter-spacing: -0.025em;
+
+
+    &:hover { border-color: $main-color; }
+
+    a {
+        display: block;
+        width: 100%;
+    }
+
+    li {
+        &:not(:last-child) {
+            padding-bottom: .75ch;
+        }
+
+        &:hover {
+            list-style-type: '> ';
+        }
+
+        &::marker {
+            color: $select-arrow-color;
+        }
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .repos {
+        max-height: 140px;
+        overflow-y: scroll;
+    }
+}

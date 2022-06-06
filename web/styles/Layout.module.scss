@@ -1,0 +1,37 @@
+.mainColumn {
+    flex-grow: 1;
+    width: 65ch;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    gap: 3ch;
+    margin-bottom: 40px;
+    margin-top: 3.5em;
+}
+
+.topBanner {
+    font-size: smaller;
+    font-weight: bold;
+    letter-spacing: -0.025em;
+    color: #303030;
+    text-align: center;
+    background-color: $main-color;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: .5em .25em;
+    a {
+        text-decoration: underline;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        flex-direction: column;
+        margin-top: 3em;
+    }
+}

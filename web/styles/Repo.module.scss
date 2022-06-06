@@ -1,0 +1,29 @@
+.main {
+    margin: 2ch
+}
+
+.cloneBanner {
+    border-bottom: 1px solid $deselected-color;
+    font-size: small;
+    display: flex;
+    border-color: inherit;
+
+    > * {
+        font-size: 1em;
+        margin: 0;
+        padding: 1ch 2ch;
+    }
+
+    > :last-child {
+        color: #FC81A8;
+    }
+
+    > *:not(:last-child) {
+        border-right: 1px solid $deselected-color;
+        border-color: inherit;
+    }
+}
+
+.loadContainer {
+    margin: 0ch 2ch;
+}

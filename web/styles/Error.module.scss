@@ -1,0 +1,11 @@
+.error {
+    margin: 2ch 2ch;
+}
+
+.error::before {
+    content: 'Error';
+    background-color: $error-color;
+    padding: 0ch 1ch;
+    margin-right: 1ch;
+    font-weight: bold;
+}
