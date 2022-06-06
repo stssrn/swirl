@@ -19,7 +19,7 @@ const DEFAULT_ALLOWED_ORIGINS: [&str; 1] = ["*"];
 
 // Default's below are the same as Soft Serve's defaults.
 const DEFAULT_HOME_REPO: &str = "config";
-const DEFAULT_REPO_PATH: &str = "./repos";
+const DEFAULT_REPO_PATH: &str = ".repos";
 
 impl Config {
     pub fn load() -> Result<Self, Error> {
